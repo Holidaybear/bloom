@@ -1,4 +1,6 @@
+import 'package:bloom/bloom_theme_data.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 
 void main() {
@@ -13,9 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Bloom',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      themeMode: ThemeMode.system,
+      theme: BloomThemeData.lightThemeData,
+      darkTheme: BloomThemeData.darkThemeData,
       home: const WelcomePage(),
     );
   }
@@ -26,12 +28,21 @@ class WelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness:
+          (MediaQuery.of(context).platformBrightness == Brightness.light)
+              ? Brightness.dark
+              : Brightness.light,
+    ));
     return Scaffold(
-      backgroundColor: const Color(0xFFFFF1F1),
+      backgroundColor: Theme.of(context).primaryColor,
       body: Stack(
         children: <Widget>[
           SvgPicture.asset(
-            'assets/light_welcome_bg.svg',
+            (MediaQuery.of(context).platformBrightness == Brightness.light)
+                ? 'assets/light_welcome_bg.svg'
+                : 'assets/dark_welcome_bg.svg',
             alignment: Alignment.center,
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
@@ -43,20 +54,31 @@ class WelcomePage extends StatelessWidget {
                 margin:
                     const EdgeInsets.only(left: 88.0, top: 72.0, bottom: 48.0),
                 child: SvgPicture.asset(
-                  'assets/light_welcome_illos.svg',
+                  (MediaQuery.of(context).platformBrightness ==
+                          Brightness.light)
+                      ? 'assets/light_welcome_illos.svg'
+                      : 'assets/dark_welcome_illos.svg',
                   fit: BoxFit.cover,
                 ),
               ),
               Center(
                 child: SvgPicture.asset(
-                  'assets/light_logo.svg',
+                  (MediaQuery.of(context).platformBrightness ==
+                          Brightness.light)
+                      ? 'assets/light_logo.svg'
+                      : 'assets/dark_logo.svg',
                   fit: BoxFit.cover,
                 ),
               ),
               Container(
                 alignment: Alignment.bottomCenter,
                 height: 32,
-                child: const Text("Beautiful home garden solutions"),
+                child: Text(
+                  "Beautiful home garden solutions",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.onPrimary,
+                  ),
+                ),
               ),
               const SizedBox(height: 40),
               Container(
@@ -64,12 +86,16 @@ class WelcomePage extends StatelessWidget {
                   child: ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                        primary: const Color(0xFF3F2C2C),
-                        onPrimary: Colors.white,
+                        primary: Theme.of(context).colorScheme.secondary,
+                        onPrimary: Theme.of(context).colorScheme.onSecondary,
                         minimumSize: const Size(double.infinity, 48),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24))),
-                    child: const Text("Create Account"),
+                    child: Text(
+                      "Create Account",
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.onSecondary),
+                    ),
                   )),
               const SizedBox(height: 8),
               Container(
@@ -77,9 +103,18 @@ class WelcomePage extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {},
                     style: TextButton.styleFrom(
+                        primary: Theme.of(context).colorScheme.secondary,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24))),
-                    child: const Text("Log in", style: TextStyle(color: Color(0xFF3F2C2C)),),
+                    child: Text(
+                      "Log in",
+                      style: TextStyle(
+                        color: (MediaQuery.of(context).platformBrightness ==
+                                Brightness.light)
+                            ? Theme.of(context).colorScheme.secondary
+                            : Theme.of(context).colorScheme.onPrimary,
+                      ),
+                    ),
                   )),
             ],
           ),
