@@ -1,5 +1,6 @@
 import 'package:bloom/bloom_theme_data.dart';
 import 'package:bloom/welcome_page.dart';
+import 'package:bloom/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -18,6 +19,10 @@ class MyApp extends StatelessWidget {
       theme: BloomThemeData.lightThemeData,
       darkTheme: BloomThemeData.darkThemeData,
       home: const WelcomePage(),
+      routes: <String, WidgetBuilder> {
+        '/welcome': (BuildContext context) => const WelcomePage(),
+        '/login': (BuildContext context) => const LoginPage(),
+      },
     );
   }
 }

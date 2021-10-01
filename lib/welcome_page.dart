@@ -83,7 +83,9 @@ class WelcomePage extends StatelessWidget {
               SizedBox(
                 height: 48,
                 child: TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/login');
+                  },
                   style: TextButton.styleFrom(
                     primary: Theme.of(context).colorScheme.secondary,
                     shape: RoundedRectangleBorder(
