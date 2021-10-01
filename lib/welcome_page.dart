@@ -53,10 +53,10 @@ class WelcomePage extends StatelessWidget {
                 alignment: Alignment.bottomCenter,
                 height: 32,
                 child: Text(
-                  "Beautiful home garden solutions",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                  ),
+                  'Beautiful home garden solutions',
+                  style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                        color: Theme.of(context).colorScheme.onPrimary,
+                      ),
                 ),
               ),
               const SizedBox(height: 40),
@@ -72,9 +72,10 @@ class WelcomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24)),
                   ),
                   child: Text(
-                    "Create Account",
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.onSecondary),
+                    'Create account',
+                    style: Theme.of(context).textTheme.button?.copyWith(
+                          color: Theme.of(context).colorScheme.onSecondary,
+                        ),
                   ),
                 ),
               ),
@@ -89,13 +90,13 @@ class WelcomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24)),
                   ),
                   child: Text(
-                    "Log in",
-                    style: TextStyle(
-                      color: (MediaQuery.of(context).platformBrightness ==
-                              Brightness.light)
-                          ? Theme.of(context).colorScheme.secondary
-                          : Theme.of(context).colorScheme.onPrimary,
-                    ),
+                    'Log in',
+                    style: Theme.of(context).textTheme.button?.copyWith(
+                          color: (MediaQuery.of(context).platformBrightness ==
+                                  Brightness.light)
+                              ? Theme.of(context).colorScheme.secondary
+                              : Theme.of(context).colorScheme.onPrimary,
+                        ),
                   ),
                 ),
               ),
